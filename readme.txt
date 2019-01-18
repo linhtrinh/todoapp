@@ -4,7 +4,7 @@ todo app =]]
 npx create-react-app todoapp
 cd todoapp
 
-npm i mongoose helmet express cors connect-multiparty body-parser compression morgan bunyan express-bunyan-logger --save 
+npm i mongoose helmet express cors connect-multiparty body-parser compression bluebird morgan bunyan express-bunyan-logger --save 
 mkdir server
 cd server
 mkdir controllers

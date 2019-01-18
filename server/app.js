@@ -1,6 +1,7 @@
+const Promise = require('bluebird')
 const express = require('express')
 const routes = require('./routes/')
-const mongoose = require('mongoose')
+const mongoose = Promise.promisifyAll(require('mongoose'))
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
@@ -11,20 +12,18 @@ const app = express()
 const router = express.Router()
 
 /** 
- * todo: change it to env file configure
+ * 
  * connect to MongoDB datastore */
-try {
-    let db_con = constants.Db_Con || process.env.DB_CON;
+let db_con = constants.Db_Con || process.env.DB_CON;
 
-    mongoose.connect(db_con, {
-        //useMongoClient: true
+mongoose.connect(db_con, {
+    //useMongoClient: true
         useNewUrlParser: true
     }).then(()=>{
         console.log('Database is connected');
-    });
-} catch (error) {
-    console.log('Can not connect to the database'+ error);
-}
+}).catch ((error) => {
+        console.log('Can not connect to the database'+ error);
+});
 
 let port = constants.Dev_Port || process.env.PORT;
 /** set up routes {API Endpoints} */
